@@ -1,28 +1,50 @@
-import React, { Component } from "react";
-// the above is the same as this: const Component = React.Component
+// import React, { Component } from "react";
+// // the above is the same as this: const Component = React.Component
 
-// create a new class component and give it all the functionality of react.
+// // create a new class component and give it all the functionality of react.
+// class SearchBar extends Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.state = { term: "" };
+//   }
+//   render() {
+//     //on input change send input to onInputChange()
+//     return (
+//       <div className="search-bar">
+//         <input value={this.state.term} onChange={event => this.onInputChange(event.target.value)} />
+//       </div>
+//     );
+//   }
+
+//   onInputChange(term) {
+//     this.setState({ term });
+//     this.props.onSearchTermChange(term);
+//   }
+// }
+
+// export default SearchBar;
+
+import React, { Component } from "react";
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { term: "Starting value" };
+    this.state = { term: "" };
   }
   render() {
-    //on input change send input to onInputChange()
     return (
-      <div>
-        <input value={this.state.tem} onChange={event => this.setState({ term: event.target.value })} />
-        Value of the input: {this.state.term}
+      <div className="search-bar">
+        <input value={this.state.term} onChange={event => this.onInputChange(event.target.value)} />
       </div>
-      // this.state.term = even.target.value BAD!!!!
     );
   }
 
-  //   //this change is an object with alot of data in it
-  //   onInputChange(event) {
-  //     console.log(event.target.value);
-  //   }
+  onInputChange(term) {
+    this.setState({ term });
+    this.props.onSearchTermChange(term);
+  }
 }
 
 export default SearchBar;
