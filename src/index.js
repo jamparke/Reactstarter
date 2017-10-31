@@ -1,10 +1,12 @@
 //bring in react from node modules
 import React, { Component } from "react";
+import _ from "lodash";
 // bring in react dom  from node modules to actually render it to the dom
 import ReactDOM from "react-dom";
 import YTSearch from "youtube-api-search";
 
 // bring in individual components
+
 import SearchBar from "./components/search_bar";
 import VideoList from "./components/video_list";
 import VideoDetail from "./components/video_detail";
@@ -12,7 +14,6 @@ import VideoDetail from "./components/video_detail";
 //Youtube api access key
 const API_KEY = "AIzaSyBDU9BwCNM05Uibq4FDr7jChHC0kHV72Dg";
 
-// create a new component to produce some html
 class App extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +36,12 @@ class App extends Component {
   }
 
   render() {
+    const videoSearch = _.debounce(term => {
+      this.videoSearch(term);
+    }, 300);
     return (
       <div>
-        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList onVideoSelect={selectedVideo => this.setState({ selectedVideo })} videos={this.state.videos} />
       </div>
